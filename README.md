@@ -3,7 +3,7 @@
 Simple crud example project. Data can be loaded with a data.sqll and schema.sqll or with bootstrap.
 
 put post delete and update rest api.
-runs on localhost: 8089
+runs on localhost: 8080
 
 #Endpoint documentation
 * Json: http://localhost:8089/api-json-documentation
@@ -13,6 +13,25 @@ runs on localhost: 8089
 * http://localhost:8080/h2-console
 * use version 1.4.199
 * jdbc:h2:mem:studentdb
+
+#JWT
+A JSON webtoken has three parts
+* a header
+{
+  "alg": "HS256"
+  "typ": "JWT"
+}
+  
+*Payload
+{
+"sub": "johnd24"
+"name": "John Doe"
+"iat": 1516239022
+"claims": "create, edit"
+}
+
+*Signature
+256-bit-secret
 
 #example POST request in IntelliJ
 ````

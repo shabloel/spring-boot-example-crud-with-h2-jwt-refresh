@@ -28,7 +28,7 @@ public class UserController {
 
     @GetMapping("/users/username")
     public ResponseEntity<User> getUser(@RequestParam String username){
-        return ResponseEntity.ok().body(userService.getUser(username));
+        return ResponseEntity.ok().body(userService.getUser(username).get());
     }
 
     @PostMapping("/users/save")

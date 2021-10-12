@@ -56,7 +56,7 @@ public class StudentController {
                     content = @Content) })
     @GetMapping("/students/{id}")
     public Student getStudentById(@Parameter(description = "Id for the student to be retrieved",
-                                       required = true, produces = MediaType.APPLICATION_JSON)
+                                       required = true)
                                 @PathVariable Long id){
         logger.trace("Students are being retrieved");
         return studentService.getStudentById(id);

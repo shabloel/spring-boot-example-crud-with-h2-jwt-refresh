@@ -23,7 +23,23 @@ VALUES ('Thomas', 'Edison', 2),
        ('Niels', 'Bohr', 3),
        ('Sigmund', 'Freud', 1);
 
-INSERT INTO USER(ID, USER_NAME, PASSWORD, ROLES)
-VALUES (1, 'user', 'pass', 'USER');
 
+INSERT INTO ROLE(ID, ROLE_NAME)
+VALUES (1, 'ROLE_ADMIN'),
+       (2, 'ROLE_SUPER_ADMIN'),
+       (3, 'ROLE_USER'),
+       (4, 'ROLE_MANAGER');
 
+INSERT INTO USER(ID, USER_NAME, PASSWORD)
+VALUES (1, 'James Last', 'pass'),
+       (2, 'Cindy Crawford', 'pass'),
+       (3, 'Tony Choco', 'pass'),
+       (4, 'Tesssa de Loo', 'pass');
+
+INSERT INTO USER_ROLES(USER_ID, ROLES_ID)
+VALUES (1, 1),
+       (1, 2),
+       (2, 4),
+       (3, 3),
+       (3, 4),
+       (4, 1);

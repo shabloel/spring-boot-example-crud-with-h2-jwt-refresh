@@ -5,14 +5,21 @@ import com.example.demo.model.User;
 import com.example.demo.repositories.RoleRepo;
 import com.example.demo.repositories.UserRepo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+//makes sure dat is saved into db without calling the repo, see method addRoleToUSer()
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service @Slf4j @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
 
@@ -23,30 +30,30 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User saveUser(User user) {
-        log.info("Saving new user{} to database", user.getUserName());
+        log.info("Saving new user {} to database", user.getUserName());
         return userRepo.save(user);
     }
 
     @Override
     public Role saveRole(Role role) {
-        log.info("Saving role {} to database", role.getName());
+        log.info("Saving role {} to database", role.getRoleName());
         return roleRepo.save(role);
     }
 
     @Override
     public void addRoleToUser(String username, String roleName) {
         log.info("Adding new role {} to user {}", roleName, username);
-        User user = userRepo.findByUserName(username);
-        Role role = roleRepo.findByName(roleName);
-        if(user != null && role != null) {
-            user.getRoles().add(role);
+        Optional<User> user = userRepo.findByUserName(username);
+        Role role = roleRepo.findByRoleName(roleName);
+        if(user.isPresent() && role != null) {
+            user.get().getRoles().add(role);
         }else{
             throw new RuntimeException("Role or user does not exist");
         }
     }
 
     @Override
-    public User getUser(String username) {
+    public Optional<User> getUser(String username) {
         log.info("Fetching user {}", username);
         return userRepo.findByUserName(username);
     }
@@ -55,5 +62,16 @@ public class UserServiceImpl implements UserService{
     public List<User> getUsers() {
         log.info("Finding all users");
         return userRepo.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        log.error("User not found in the database");
+        User user = userRepo.findByUserName(userName)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found in the database"));
+        Collection<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+        user.getRoles().forEach(a -> simpleGrantedAuthorities.add(new SimpleGrantedAuthority(a.getRoleName())));
+        return new org.springframework.security.core.userdetails
+                .User(user.getUserName(), user.getPassword(), null);
     }
 }

@@ -11,9 +11,5 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
-
-
     }
-
-
 }

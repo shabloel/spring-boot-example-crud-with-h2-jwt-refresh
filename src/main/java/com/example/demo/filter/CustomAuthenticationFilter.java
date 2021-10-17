@@ -34,6 +34,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
+        //use x-www-form-urlencoded in Postman
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
         log.info("Username is: {}", userName);
@@ -57,6 +58,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withClaim("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toList()))
                 .sign(algorithm);
-        super.successfulAuthentication(request, response, chain, authResult);
+        String refresh_token = JWT.create()
+                .withSubject(userDetails.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
+                .withIssuer(request.getRequestURL().toString())
+                .withClaim("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()))
+                .sign(algorithm);
+
+        response.setHeader("access_token", access_token);
+        response.setHeader("refresh_token", refresh_token);
+
     }
 }

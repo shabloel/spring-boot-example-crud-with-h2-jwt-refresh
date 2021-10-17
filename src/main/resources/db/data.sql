@@ -30,11 +30,11 @@ VALUES (1, 'ROLE_ADMIN'),
        (3, 'ROLE_USER'),
        (4, 'ROLE_MANAGER');
 
-INSERT INTO USER(ID, USER_NAME, PASSWORD)
-VALUES (1, 'James Last', 'pass'),
-       (2, 'Cindy Crawford', 'pass'),
-       (3, 'Tony Choco', 'pass'),
-       (4, 'Tesssa de Loo', 'pass');
+INSERT INTO USER(ID, FULL_NAME, USER_NAME, PASSWORD)
+VALUES (1, 'James Last', 'james@yahoo.com', 'pass'),
+       (2, 'Cindy Crawford', 'cindy@hotmail.com', 'pass'),
+       (3, 'Tony Choco', '123@yahoo.com', 'pass'),
+       (4, 'Tesssa de Loo', 'deloo123@gmail.com', 'pass');
 
 INSERT INTO USER_ROLES(USER_ID, ROLES_ID)
 VALUES (1, 1),

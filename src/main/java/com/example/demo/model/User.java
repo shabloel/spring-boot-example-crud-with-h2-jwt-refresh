@@ -13,6 +13,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String fullName;
     private String userName;
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)

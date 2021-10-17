@@ -1,6 +1,7 @@
 package com.example.demo.security;
 
 import com.example.demo.filter.CustomAuthenticationFilter;
+import com.example.demo.filter.CustomAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -40,10 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         CustomAuthenticationFilter customAuthenticationFilter =
                 new CustomAuthenticationFilter(authenticationManagerBean());
-        customAuthenticationFilter.setFilterProcessesUrl("/api/newlogin/**");
+        customAuthenticationFilter.setFilterProcessesUrl("/api/newlogin");
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilter(customAuthenticationFilter);
-        http.authorizeRequests().antMatchers("/api/newlogin").permitAll();
+        http.authorizeRequests().antMatchers("/api/newlogin/**", "/token/refresh/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/api/users/**")
                 .hasAnyAuthority("ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers(GET, "/api/roles/**")
@@ -55,6 +56,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(POST, "/api/roles/addtouser/**")
                 .hasAnyAuthority("ROLE_SUPER_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
+        http.addFilter(customAuthenticationFilter);
+        //has to run as the first filter as it has to check each request.
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

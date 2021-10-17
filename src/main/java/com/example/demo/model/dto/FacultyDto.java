@@ -1,15 +1,11 @@
-package com.example.demo.dto;
+package com.example.demo.model.dto;
 
-import com.example.demo.model.Department;
-import com.example.demo.model.Teacher;
+import com.example.demo.model.entity.Department;
+import com.example.demo.model.entity.Teacher;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data

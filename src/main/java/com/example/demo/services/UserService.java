@@ -1,10 +1,8 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Role;
-import com.example.demo.model.User;
-import org.springframework.stereotype.Service;
+import com.example.demo.model.entity.Role;
+import com.example.demo.model.entity.User;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Optional;
 

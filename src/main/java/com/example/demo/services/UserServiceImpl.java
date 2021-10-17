@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Role;
-import com.example.demo.model.User;
+import com.example.demo.model.entity.Role;
+import com.example.demo.model.entity.User;
 import com.example.demo.repositories.RoleRepo;
 import com.example.demo.repositories.UserRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -70,12 +70,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        log.error("User not found in the database");
         User user = userRepo.findByUserName(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found in the database"));
         Collection<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
         user.getRoles().forEach(a -> simpleGrantedAuthorities.add(new SimpleGrantedAuthority(a.getRoleName())));
         return new org.springframework.security.core.userdetails
-                .User(user.getUserName(), user.getPassword(), null);
+                .User(user.getUserName(), user.getPassword(), simpleGrantedAuthorities);
     }
 }

@@ -1,13 +1,11 @@
 package com.example.demo.services;
 
-import com.example.demo.controllers.StudentController;
-import com.example.demo.dto.StudentDto;
+import com.example.demo.model.dto.StudentDto;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.StudentNotFoundException;
 import com.example.demo.mapper.SourceTargetMapper;
-import com.example.demo.model.Student;
+import com.example.demo.model.entity.Student;
 import com.example.demo.repositories.StudentRepo;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**

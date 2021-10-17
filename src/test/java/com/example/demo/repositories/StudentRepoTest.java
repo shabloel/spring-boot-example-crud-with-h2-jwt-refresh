@@ -1,7 +1,7 @@
 package com.example.demo.repositories;
 
-import com.example.demo.model.Gender;
-import com.example.demo.model.Student;
+import com.example.demo.model.entity.Gender;
+import com.example.demo.model.entity.Student;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

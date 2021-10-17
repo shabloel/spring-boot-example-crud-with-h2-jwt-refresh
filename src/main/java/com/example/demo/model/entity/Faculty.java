@@ -1,4 +1,5 @@
-package com.example.demo.model;
+package com.example.demo.model.entity;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,29 +8,25 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class CourseRegistration {
+public class Faculty {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
-
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
-
     @NotNull
     @Size(min = 0, max = 20)
-    private String location;
+    private String name;
 
-    private int grade;
+    @OneToMany(mappedBy = "faculty")
+    private Set<Teacher> teacher;
 
+    @OneToMany(mappedBy = "faculty")
+    private Set<Department> departments;
 }

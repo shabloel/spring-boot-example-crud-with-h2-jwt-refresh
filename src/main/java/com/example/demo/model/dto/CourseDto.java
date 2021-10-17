@@ -1,15 +1,10 @@
-package com.example.demo.dto;
+package com.example.demo.model.dto;
 
-import com.example.demo.model.CourseRegistration;
-import com.example.demo.model.Teacher;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.Set;
 
 /**
  * @author : christiaan.griffioen

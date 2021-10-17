@@ -1,13 +1,12 @@
 package com.example.demo.mapper;
 
-import com.example.demo.dto.AddressDto;
-import com.example.demo.dto.StudentDto;
-import com.example.demo.dto.TeacherDto;
-import com.example.demo.model.Address;
-import com.example.demo.model.Student;
-import com.example.demo.model.Teacher;
+import com.example.demo.model.dto.AddressDto;
+import com.example.demo.model.dto.StudentDto;
+import com.example.demo.model.dto.TeacherDto;
+import com.example.demo.model.entity.Address;
+import com.example.demo.model.entity.Student;
+import com.example.demo.model.entity.Teacher;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface SourceTargetMapper {

@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.model.Role;
-import com.example.demo.model.User;
+import com.example.demo.model.entity.Role;
+import com.example.demo.model.entity.User;
 import com.example.demo.services.UserService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;

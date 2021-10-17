@@ -1,7 +1,7 @@
 package com.example.demo.mapper;
 
-import com.example.demo.dto.StudentDto;
-import com.example.demo.model.Student;
+import com.example.demo.model.dto.StudentDto;
+import com.example.demo.model.entity.Student;
 
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;

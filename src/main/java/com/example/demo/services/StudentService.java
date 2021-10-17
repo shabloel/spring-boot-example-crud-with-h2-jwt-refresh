@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.dto.StudentDto;
-import com.example.demo.model.Student;
+import com.example.demo.model.dto.StudentDto;
+import com.example.demo.model.entity.Student;
 
 import java.util.List;
 

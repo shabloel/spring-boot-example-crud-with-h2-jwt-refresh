@@ -1,6 +1,6 @@
-package com.example.demo.dto;
+package com.example.demo.model.dto;
 
-import com.example.demo.model.Gender;
+import com.example.demo.model.entity.Gender;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;

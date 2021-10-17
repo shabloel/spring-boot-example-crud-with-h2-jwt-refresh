@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 
 @Configuration
 @EnableWebSecurity
@@ -35,9 +38,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        CustomAuthenticationFilter customAuthenticationFilter =
+                new CustomAuthenticationFilter(authenticationManagerBean());
+        customAuthenticationFilter.setFilterProcessesUrl("/api/newlogin/**");
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().anyRequest().permitAll();
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+        http.addFilter(customAuthenticationFilter);
+        http.authorizeRequests().antMatchers("/api/newlogin").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/api/users/**")
+                .hasAnyAuthority("ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/api/roles/**")
+                .hasAnyAuthority("ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers(POST, "/api/users/save/**")
+                .hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(POST, "/api/roles/save/**")
+                .hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(POST, "/api/roles/addtouser/**")
+                .hasAnyAuthority("ROLE_SUPER_ADMIN");
+        http.authorizeRequests().anyRequest().authenticated();
     }
 
     @Override

@@ -10,7 +10,10 @@ import javax.persistence.Id;
 
 import static javax.persistence.GenerationType.AUTO;
 
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Role {
 
     @Id

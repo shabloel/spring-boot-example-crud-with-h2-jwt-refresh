@@ -34,7 +34,7 @@ class StudentRepoTest {
             .build();
 
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         studentRepo.deleteAll();
     }
 
@@ -55,7 +55,7 @@ class StudentRepoTest {
     void notFoundStudentByEmailStudent() {
         //given
         studentRepo.save(buildStudent);
-         logger.info("**********" + studentRepo.findAll());
+        logger.info("**********" + studentRepo.findAll());
 
         //when
         Optional<Student> studentOptional = studentRepo.findStudentByEmail("jansen@gmail.com");

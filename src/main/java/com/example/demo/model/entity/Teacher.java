@@ -31,7 +31,7 @@ public class Teacher {
     @Size(min = 0, max = 20)
     private String lastName;
 
-    @OneToMany(mappedBy ="teacher")
+    @OneToMany(mappedBy = "teacher")
     private Set<Course> courses;
 
     @ManyToOne

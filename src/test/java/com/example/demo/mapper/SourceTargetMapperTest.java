@@ -2,11 +2,10 @@ package com.example.demo.mapper;
 
 import com.example.demo.model.dto.StudentDto;
 import com.example.demo.model.entity.Student;
-
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class SourceTargetMapperTest {
@@ -14,7 +13,7 @@ class SourceTargetMapperTest {
     private SourceTargetMapper mapper = Mappers.getMapper(SourceTargetMapper.class);
 
     @Test
-    public void givenSourceToDestination_whenMaps_thenCorrect(){
+    public void givenSourceToDestination_whenMaps_thenCorrect() {
         Student student = Student.builder()
                 .firstName("Jan")
                 .lastName("Jansen")
@@ -28,7 +27,7 @@ class SourceTargetMapperTest {
         assertEquals(student.getFirstName(), studentDto.getFirstName());
     }
 
-    public void givenDestinationToSource_whenMaps_thenCorrect(){
+    public void givenDestinationToSource_whenMaps_thenCorrect() {
         StudentDto studentDto = StudentDto.builder()
                 .firstName("Jan")
                 .lastName("Jansen")

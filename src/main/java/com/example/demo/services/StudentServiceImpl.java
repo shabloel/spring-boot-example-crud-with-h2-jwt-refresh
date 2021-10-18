@@ -1,9 +1,9 @@
 package com.example.demo.services;
 
-import com.example.demo.model.dto.StudentDto;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.StudentNotFoundException;
 import com.example.demo.mapper.SourceTargetMapper;
+import com.example.demo.model.dto.StudentDto;
 import com.example.demo.model.entity.Student;
 import com.example.demo.repositories.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  **/
 
 @Service
-public class  StudentServiceImpl implements StudentService {
+public class StudentServiceImpl implements StudentService {
 
     private final StudentRepo studentRepo;
     private final SourceTargetMapper mapper;
@@ -42,7 +42,7 @@ public class  StudentServiceImpl implements StudentService {
     @Override
     public Student getStudentById(Long id) {
         boolean exists = studentRepo.existsById(id);
-        if(!exists){
+        if (!exists) {
             throw new StudentNotFoundException("student with id " + id + "is not present in DB");
         }
         return studentRepo.getById(id);

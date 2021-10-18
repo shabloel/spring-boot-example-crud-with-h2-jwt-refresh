@@ -24,18 +24,18 @@ public class StudentRepoTestEmbedded {
     Logger logger = LoggerFactory.getLogger(StudentRepoTestEmbedded.class);
 
     Student testStudent = Student.builder()
-                            .firstName("Peppa")
-                            .lastName("Pig")
-                            .gender(Gender.FEMALE)
-                            .age(12)
-                            .email("peppa@gmail.com")
-                            .build();
+            .firstName("Peppa")
+            .lastName("Pig")
+            .gender(Gender.FEMALE)
+            .age(12)
+            .email("peppa@gmail.com")
+            .build();
 
     @Autowired
     private StudentRepo studentRepo;
 
     @Test
-    public void shouldSaveStudent(){
+    public void shouldSaveStudent() {
         Student savedStudent = studentRepo.save(testStudent);
         assertThat(savedStudent).usingRecursiveComparison().ignoringFields("id").isEqualTo(testStudent);
     }

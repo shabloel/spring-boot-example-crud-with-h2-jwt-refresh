@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-//makes sure dat is saved into db without calling the repo, see method addRoleToUSer()
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -19,7 +18,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-@Service @Slf4j @Transactional
+//makes sure dat is saved into db without calling the repo, see method addRoleToUSer()
+
+@Service
+@Slf4j
+@Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
@@ -49,9 +52,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         log.info("Adding new role {} to user {}", roleName, username);
         Optional<User> user = userRepo.findByUserName(username);
         Role role = roleRepo.findByRoleName(roleName);
-        if(user.isPresent() && role != null) {
+        if (user.isPresent() && role != null) {
             user.get().getRoles().add(role);
-        }else{
+        } else {
             throw new RuntimeException("Role or user does not exist");
         }
     }

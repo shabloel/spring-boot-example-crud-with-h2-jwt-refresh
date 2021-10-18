@@ -6,7 +6,7 @@ package com.example.demo.services;
  **/
 public class Calculator {
 
-    public int calculateIq(int age, int score){
+    public int calculateIq(int age, int score) {
         return age + score;
     }
 }

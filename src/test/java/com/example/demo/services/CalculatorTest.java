@@ -14,7 +14,7 @@ class CalculatorTest {
     Calculator calculator = new Calculator();
 
     @Test
-    void itShouldCalculateIq(){
+    void itShouldCalculateIq() {
         //given
         int age = 23;
         int score = 9;

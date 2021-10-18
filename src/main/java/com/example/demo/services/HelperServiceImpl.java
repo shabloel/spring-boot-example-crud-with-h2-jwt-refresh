@@ -35,26 +35,20 @@ public class HelperServiceImpl implements HelperService {
     public void createAndSentTokens(HttpServletRequest request,
                                     HttpServletResponse response,
                                     UserService userService) {
-        String refreshToken = getRefreshToken(request, response);
+        String refreshToken = getToken(request, response);
         DecodedJWT decodedJWT = getDecodedJWT(refreshToken);
         String accessToken = createToken(decodedJWT, request, userService);
         sentTokens(accessToken, refreshToken, response);
     }
 
     @Override
-    public String getRefreshToken(HttpServletRequest request, HttpServletResponse response) {
+    public String getToken(HttpServletRequest request, HttpServletResponse response) {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             return authorizationHeader.substring("Bearer ".length());
         } else {
-            throw new RuntimeException("Refresh token is missing");
+            throw new RuntimeException("Token is missing");
         }
-    }
-
-
-    @Override
-    public DecodedJWT getAccessToken(HttpServletRequest request, HttpServletResponse response) {
-        return null;
     }
 
     @Override
@@ -97,14 +91,15 @@ public class HelperServiceImpl implements HelperService {
         }
     }
 
-    public static Algorithm getAlgorithm() {
-        return
-                Algorithm.HMAC256("secret".getBytes(StandardCharsets.UTF_8));
+    @Override
+    public Algorithm getAlgorithm() {
+        return Algorithm.HMAC256("secret".getBytes(StandardCharsets.UTF_8));
     }
 
-    private DecodedJWT getDecodedJWT(String refreshToken) {
+    @Override
+    public DecodedJWT getDecodedJWT(String token) {
         Algorithm algorithm = getAlgorithm();
         JWTVerifier verifier = JWT.require(algorithm).build();
-        return verifier.verify(refreshToken);
+        return verifier.verify(token);
     }
 }
